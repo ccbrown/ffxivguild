@@ -43,3 +43,9 @@ a:active {
 	padding: 20px;
 	color: #ffffff;
 }
+
+hr {
+	border: 0px;
+	border-bottom: 1px solid #C0C0FF;
+	margin: 30px;
+}

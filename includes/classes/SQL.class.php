@@ -35,11 +35,13 @@ class SQL {
 	}
 
 	function fetch_assoc($result) {
-		return mysql_fetch_assoc($result) or array();
+		$ret = mysql_fetch_assoc($result) or array();
+		return $ret;
 	}
 
 	function fetch_row($result) {
-		return mysql_fetch_row($result) or array();
+		$ret = mysql_fetch_row($result) or array();
+		return $ret;
 	}
 
 	function fetch_field($query) {
@@ -96,8 +98,6 @@ class SQL {
 	}
 
 	function die_error($function, $note = null) {
-		global $_, $Error;
-
 		$error_note = $function.':'.(isset($note) ? " {$note}" : '')."\n\n".mysql_errno($this->db_link).':'.mysql_error($this->db_link);
 
 		define('ERROR_TYPE', 'SQL');

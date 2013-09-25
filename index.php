@@ -48,6 +48,7 @@ require_once "./includes/common.inc.php";
 					$bbcode->bbcode_second_pass($post_text, $first_post['bbcode_uid'], $first_post['bbcode_bitfield']);
 					$post_text = smiley_text($post_text);
 					?>
+					<hr />
 					<div class="post">
 						<div class="title">
 							<a href="forums/viewtopic.php?f=<?= $_['phpbb']['news_forum_id'] ?>&t=<?= htmlspecialchars($topic['topic_id']) ?>"><?= $topic['topic_title'] ?></a>
