@@ -13,7 +13,7 @@ $auth->acl($user->data);
 $user->setup();
 
 define('IN_FFXIVG', true);
-require_once "../includes/common.inc.php";
+require_once "./includes/common.inc.php";
 ?>
 <!DOCTYPE html>
 <html>
