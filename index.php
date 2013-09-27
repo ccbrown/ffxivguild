@@ -71,8 +71,11 @@ require_once "./includes/common.inc.php";
 		<script>
 		$(function() {
 			var colors = ['#000070', '#700070', '#700000', '#707000', '#007000', '#007070'];
-			var next = Math.floor(Math.random() * 6);
+			var next = Math.floor(Math.random() * colors.length);
 			var doNextColorAnimation = function() {
+				if (next >= colors.length) {
+					next = 0;
+				}
 				$('body').animate({
 					'backgroundColor': colors[next++]
 				}, 5000, doNextColorAnimation);
