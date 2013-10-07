@@ -26,6 +26,7 @@ require_once "./includes/common.inc.php";
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/jquery.ui.effect.min.js"></script>
+		<script type="text/javascript" src="js/xivdb-tooltips.js"></script>
 	</head>
 	<body>
 		<div id="bggradient">&nbsp;</div>
