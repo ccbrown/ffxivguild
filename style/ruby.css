@@ -1,0 +1,49 @@
+/* ruby support */
+ruby
+{
+	display: inline-table;
+	text-align: center;
+	white-space: nowrap;
+	text-indent: 0;
+	margin: 0;
+	vertical-align: 20%;
+}
+
+/* ルビベース */
+ruby > rb, ruby > rbc
+{
+	display: table-row-group;
+	line-height: 100%;
+}
+
+/* 前側ルビテキスト */
+ruby > rt, ruby > rbc + rtc
+{
+	display: table-header-group;
+	font-size: 70%;
+	line-height: 100%;
+	letter-spacing: 0;
+}
+
+/* 後側ルビテキスト */
+ruby > rbc + rtc + rtc
+{
+	display: table-footer-group;
+	font-size: 70%;
+	line-height: 100%;
+	letter-spacing: 0;
+}
+
+/* 複雑ルビテキスト */
+rbc > rb, rtc > rt
+{
+	display: table-cell;
+	letter-spacing: 0;
+}
+
+/* rt[rbspan] should be transformed into td[colspan] but that requires xslt */
+rtc > rt[rbspan] { display: table-caption; }
+
+/* ルビ括弧 */
+rp { display: none; }
+
