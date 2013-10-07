@@ -59,9 +59,7 @@ header('Content-type: text/html;charset=utf-8');
 					if (url == visiblePage) {
 						return;
 					}
-					$('#content').animate({left: '-1000px', opacity: 0.0}, 300, function() {
-						$('#content').css({left: '1000px'});
-					});
+					$('#content').animate({opacity: 0.0}, 300);
 					showLoadingIndicator();
 					$('#content').load(url, function(response, status, xhr) {
 						hideLoadingIndicator();
@@ -73,8 +71,7 @@ header('Content-type: text/html;charset=utf-8');
 						} else {
 							visiblePage = url;
 						}
-						$('#content').stop();
-						$('#content').animate({left: '0px', opacity: 1.0}, 300);
+						$('#content').animate({opacity: 1.0}, 300);
 					});						
 				};
 
