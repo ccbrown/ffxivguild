@@ -117,3 +117,27 @@ hr {
 	font-size: 12px;
 	margin-bottom: 8px;
 }
+
+table.form {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+table.form td {
+	vertical-align: top;
+	padding: 6px;
+}
+
+table.form td.fieldname {
+	text-align: left;
+}
+
+table.form td.fieldvalue {
+	text-align: right;
+}
+
+table.form td.fieldvalue input, table.form td.fieldvalue textarea {
+	width: 450px;
+	border: 1px solid #353535;
+	padding: 4px;
+}
