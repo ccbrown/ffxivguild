@@ -16,6 +16,7 @@ header('Content-type: text/html;charset=utf-8');
 		<script type="text/javascript" src="js/xivdb-tooltips.js"></script>
 	</head>
 	<body>
+		<div id="bgcoloranimation">&nbsp;</div>
 		<div id="bggradient">&nbsp;</div>
 
 		<script>
@@ -82,15 +83,13 @@ header('Content-type: text/html;charset=utf-8');
 			});
 		</script>
 
-		<div id="wrapper">	
-			<center>
-				<br />
-				<h1>準備中</h1>
-				<h1>Under Construction</h1>
-				<br />
-				<a href="forums"><b>The forums are up though!</b></a>
-				<br /><br />
-			</center>
+		<div id="wrapper">
+			<div id="header">
+				<table id="navbar"><tr>
+					<td><a href="#">Home</a></td>
+					<td><a href="forums">Forums</a></td>
+				</tr></table>
+			</div>
 
 			<div id="content">
 				&nbsp;
@@ -115,7 +114,7 @@ header('Content-type: text/html;charset=utf-8');
 				if (next >= colors.length) {
 					next = 0;
 				}
-				$('body').animate({
+				$('#bgcoloranimation').animate({
 					'backgroundColor': colors[next++]
 				}, 5000, doNextColorAnimation);
 			}
