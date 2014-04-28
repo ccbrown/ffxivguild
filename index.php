@@ -55,6 +55,8 @@ header('Content-type: text/html;charset=utf-8');
 					if (parts.length >= 1) {
 						if (parts[0] == '#apply') {
 							url = 'ajax/apply.php';
+						} else if (parts[0] == '#groups') {
+							url = 'ajax/groups.php';
 						}
 					}
 					if (url == visiblePage) {
