@@ -8,11 +8,12 @@ header('Content-type: text/html;charset=utf-8');
 		
 		<title>Final Fantasy | ファイナルファンタジ &lt;&lt;FFXIV&gt;&gt;</title>
 		
+		<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/ruby.css" />
 		<link rel="stylesheet" type="text/css" href="style/style.css" />
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.effect.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/xivdb-tooltips.js"></script>
 	</head>
 	<body>
@@ -89,6 +90,7 @@ header('Content-type: text/html;charset=utf-8');
 			<div id="header">
 				<table id="navbar"><tr>
 					<td><a href="#">Home</a></td>
+					<td><a href="#groups">Raid Groups</a></td>
 					<td><a href="forums">Forums</a></td>
 				</tr></table>
 			</div>

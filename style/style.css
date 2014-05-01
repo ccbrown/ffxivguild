@@ -55,7 +55,7 @@ body {
 	position: relative;
 	height: 400px;
 	margin: 20px;
-	margin-bottom: 0px;
+	margin-bottom: 10px;
 	background-image: url('../images/header.jpg');
 	background-position: center;
 	border-radius: 12px;
@@ -152,7 +152,7 @@ hr {
 }
 
 .light {
-	color: #353535;
+	color: #202020;
 	background-color: #EEEEEE;
 	padding: 10px;
 	margin: 0px;
@@ -163,11 +163,11 @@ hr {
 
 .light a:link, .light a:visited {
 	color: #353535;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 .light a:hover {
-	color: #494949;
+	color: #707070;
 	text-decoration: underline;
 }
 
