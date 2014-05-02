@@ -1,18 +1,17 @@
 var xivdb_tooltips_config =
 {
     // General
-    'version'       : '1.5',
+    'version'       : '1.6',
     'domain'        : 'xivdb.com',
 
-    // Tooltip options
+    // Set options
     'zindex'        : '99999999',
-    'convertQuotes' : true,
-    'frameShadow'   : true,
-    'compact'       : false,
-    'statsOnly'     : false,
+
+    // Custom options
     'replaceName'   : true,
     'colorName'     : true,
     'showIcon'      : true,
+    'debug'         : false,
 
     // Accept url domains
     hrefs:
@@ -71,28 +70,10 @@ function fPopLoadItem()
                     xivdb_tooltips_config.language.value = xivdb_tooltips_config.language.list.indexOf(xivdb_tooltips.language);
                 }
 
-                // If shadow set
-                if (typeof xivdb_tooltips.frameShadow !== "undefined")
+                // if debug mode
+                if (typeof xivdb_tooltips.debug !== "undefined")
                 {
-                    xivdb_tooltips_config.frameShadow = xivdb_tooltips.frameShadow;
-                }
-
-                // if convert quotes set
-                if (typeof xivdb_tooltips.convertQuotes !== "undefined")
-                {
-                    xivdb_tooltips_config.convertQuotes = xivdb_tooltips.convertQuotes;
-                }
-
-                // if compact
-                if (typeof xivdb_tooltips.compact !== "undefined")
-                {
-                    xivdb_tooltips_config.compact = xivdb_tooltips.compact;
-                }
-
-                // if stats only
-                if (typeof xivdb_tooltips.statsOnly !== "undefined")
-                {
-                    xivdb_tooltips_config.statsOnly = xivdb_tooltips.statsOnly;
+                    xivdb_tooltips_config.debug = xivdb_tooltips.debug;
                 }
 
                 // if replace name
@@ -114,55 +95,81 @@ function fPopLoadItem()
                 }
             }
 
-            var t = jQuery(this);
+            var element = jQuery(this);
             void 0 == id || !jQuery.isNumeric(id) || (jQuery.ajax({
                 url: "http://"+ xivdb_tooltips_config.domain +"/modules/fpop/fpop.php",
                 data: 
                 {
+                    //callback: '',
                     lang: xivdb_tooltips_config.language.value,
                     version: xivdb_tooltips_config.version,
-                    host: host,
+                    //location: window.location.hostname.toString(),
+
                     type: type,
                     id: id,
-                    name: name,
-                    location: window.location.toString(),
-
-                    convertQuotes: xivdb_tooltips_config.convertQuotes,
-                    frameShadow: xivdb_tooltips_config.frameShadow,
-                    compact: xivdb_tooltips_config.compact,
-                    statsOnly: xivdb_tooltips_config.statsOnly,
-                    replaceName: xivdb_tooltips_config.replaceName,
-                    colorName: xivdb_tooltips_config.colorName,
-                    showIcon: xivdb_tooltips_config.showIcon,
                 },
+                
+                cache: true,
                 type: 'GET',
-                dataType: "jsonp",
-                success: function (e) 
+                success: function (data) 
                 {
-                    if (void 0 != e)
+                    //console.log(data);
+                    data = JSON.parse(data);
+                    //console.log(data);
+
+                    if (void 0 != data)
                     {
-                        t.attr("title", "");
-                        if (xivdb_tooltips_config.replaceName) { t.html(e.name); }
-                        t.data("tooltip", e.html);
-                        t.simpletooltip({
+                        // Remove any title attribute, messes up hover
+                        element.attr("title", "");
+
+                        // Set tooltip html
+                        element.data("tooltip", data.html.replace('db.xivdev.com', 'xivtooltips.com'));
+
+                        // If we are replacing the name of the element
+                        if (xivdb_tooltips_config.replaceName && data.name != null && element.attr("data-replacename") != 0) 
+                        { 
+                            element.html(data.name.replace('db.xivdev.com', 'xivtooltips.com'));
+                        }
+
+                        // If we are coloring the name of the element
+                        if (xivdb_tooltips_config.colorName && data.color != null  && element.attr("data-colorname") != 0) 
+                        { 
+                            element.css({ color: data.color });
+                        }
+
+                        // If we are coloring the name of the element
+                        if (xivdb_tooltips_config.showIcon && data.icon != null  && element.attr("data-showicon") != 0) 
+                        { 
+                            element.html('<img src="'+ data.icon + '" style="margin:0 5px -5px 0;width:20px;height:20px;" />' + element.html());
+                        }
+                        
+                        // Tooltip
+                        element.simpletooltip({
                             fixed: !0,
                             position: "bottom"
                         });
                     }
                     else
                     {
-                        console.log("Error[1] fetching tooltip data, please copy the below response to: http://xivpads.com/?Support");
-                        console.log(e);
-                        console.log("---");
+                        if (xivdb_tooltips_config.debug)
+                        {
+                            console.log("Error[1] fetching tooltip data, please copy the below response to: http://xivpads.com/?Support");
+                            console.log(data);
+                            console.log("---");
+                        }
                     }
                 },
+
                 error: function (e, t, n) 
                 {
-                    console.log("Error[2] fetching tooltip data, please copy the below response to: http://xivpads.com/?Support");
-                    console.log(e.responseText);
-                    console.log(t);
-                    console.log(n);
-                    console.log("---");
+                    if (xivdb_tooltips_config.debug)
+                    {
+                        console.log("Error[2] fetching tooltip data, please copy the below response to: http://xivpads.com/?Support");
+                        console.log(e.responseText);
+                        console.log(t);
+                        console.log(n);
+                        console.log("---");
+                    }
                 }
             }));
         }
@@ -177,3 +184,6 @@ function fPopInit(){"undefined"==typeof jQuery?fPopGetScript("//ajax.googleapis.
 // Oncall event
 initXIVDBTooltips=function(){var e=document.createElement("link");e.setAttribute("rel","stylesheet");e.setAttribute("href","http://"+xivdb_tooltips_config.domain+"/css/tooltip.css");e.setAttribute("type","text/css");document.getElementsByTagName("head")[0].appendChild(e);var e=setInterval(function(){"complete"===document.readyState&&(clearInterval(e),fPopInit())},10)}
 document.addEventListener('DOMContentLoaded',function(){ initXIVDBTooltips(); })
+
+// General functions
+function xivtt_replaceAll(txt, replace, with_this) { if (txt && replace && with_this) { return txt.replace(new RegExp(replace, 'g'),with_this); } else { return txt; } };
