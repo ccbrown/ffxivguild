@@ -92,6 +92,7 @@ header('Content-type: text/html;charset=utf-8');
 					<td><a href="#">Home</a></td>
 					<td><a href="#groups">Raid Groups</a></td>
 					<td><a href="forums">Forums</a></td>
+					<td><a href="http://sim.ffxivguild.net" target="_blank">Combat Simulator</a></td>
 				</tr></table>
 			</div>
 
