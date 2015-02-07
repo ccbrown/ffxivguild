@@ -24,7 +24,7 @@ header('Content-type: text/html;charset=utf-8');
 		
 		<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/ruby.css" />
-		<link rel="stylesheet" type="text/css" href="style/style.css" />
+		<link rel="stylesheet" type="text/css" href="style/style.css?1" />
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
