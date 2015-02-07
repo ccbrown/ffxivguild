@@ -23,102 +23,6 @@ body {
 	color: #ffffff;
 }
 
-#bggradient {
-	position: fixed;
-	left: 0px;
-	top: 400px;
-	width: 100%;
-	height: 100%;
-	margin: 0px;
-	background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
-	z-index: -1000;
-}
-
-#bgcoloranimation {
-	position: fixed;
-	left: 0px;
-	top: 400px;
-	width: 100%;
-	height: 100%;
-	margin: 0px;
-	background-color: #000000;
-	z-index: -1100;
-}
-
-#header {
-	position: relative;
-	height: 400px;
-	margin: 20px;
-	margin-bottom: 10px;
-	background-image: url('../images/header.jpg');
-	background-position: center;
-	border-radius: 6px;
-}
-
-#navbar {
-	position: absolute;
-	top: 340px;
-	width: 100%;
-	table-layout: fixed;
-	margin: 0px;
-	height: 40px;
-	border-spacing: 10px;
-}
-
-#navbar a {
-	color: #E0E0E0;
-	text-shadow: 0.12em 0.12em #000000;
-	text-decoration: none;
-	outline: 0;
-	width: 100%;
-	height: 34px;
-	padding-top: 6px;
-	display: block;
-}
-
-#navbar a:hover {
-	text-decoration: none;
-}
-
-#navbar td {
-	text-align: center;
-	background-color: #202020;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 0px;
-	font-family: "ExoDemiBold", Arial, Helvetica, sans-serif;
-	font-size: 24px;
-	border-radius: 6px;
-}
-
-#navbar td:hover {
-	background-color: #303030;
-	background-color: rgba(0, 0, 0, 0.8);
-}
-
-#navbar td:hover a {
-	color: #FFFFFF;
-}
-
-#loadingwrapper {
-	position: absolute;
-	top: 200px;
-	left: 0px;
-	min-width: 100%;
-	display: none;
-}
-
-#loadingbox {
-	background-color: #000000;
-	padding: 30px;
-	width: 200px;
-}
-
 a:link, a:visited {
 	color: #ffffff;
 	text-decoration: underline;
@@ -126,6 +30,11 @@ a:link, a:visited {
 	
 a:hover {
 	text-decoration: underline;
+}
+
+#header {
+	text-align: right;
+	padding: 8px;
 }
 
 #wrapper {
@@ -145,67 +54,56 @@ a:hover {
 	width: 1160px;
 }
 
+#left-bg {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+}
+
+#right-bg {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+}
+
 hr {
 	border: 0px;
 	border-bottom: 1px solid #C0C0FF;
 	margin: 30px;
 }
 
-.light {
-	color: #202020;
-	background-color: #EEEEEE;
+.news {
+	color: #e0e0e0;
+	background-color: #000000;
+	background-color: rgba(0, 0, 0, 0.6);
 	padding: 10px;
 	margin: 0px;
 	margin-top: 16px;
 	margin-bottom: 16px;
-	border-radius: 6px;
+	border: 1px solid #404040;
 }
 
-.light a:link, .light a:visited {
-	color: #353535;
+.news a:link, .news a:visited {
+	color: #ffffff;
 	text-decoration: underline;
 }
 
-.light a:hover {
-	color: #707070;
+.news a:hover {
+	color: #ffffff;
 	text-decoration: underline;
 }
 
-.light .head {
-	border-bottom: 1px solid #858585;
+.news .head {
+	border-bottom: 1px solid #202020;
 	margin-bottom: 18px;
 }
 
-.light .head h1 {
+.news .head h1 {
 	font-family: "ExoDemiBold", Arial, Helvetica, sans-serif;
 	margin: 0px;
 }
 
-.light .head .subtitle {
+.news .head .subtitle {
 	font-size: 12px;
 	margin-bottom: 8px;
-}
-
-table.form {
-	border-spacing: 0;
-	border-collapse: collapse;
-}
-
-table.form td {
-	vertical-align: top;
-	padding: 6px;
-}
-
-table.form td.fieldname {
-	text-align: left;
-}
-
-table.form td.fieldvalue {
-	text-align: right;
-}
-
-table.form td.fieldvalue input, table.form td.fieldvalue textarea {
-	width: 450px;
-	border: 1px solid #353535;
-	padding: 4px;
 }

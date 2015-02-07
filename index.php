@@ -1,4 +1,18 @@
 <?php
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './forums/';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+include($phpbb_root_path . 'includes/bbcode.' . $phpEx);
+include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+
+$user->session_begin();
+$auth->acl($user->data);
+$user->setup();
+
+define('IN_FFXIVG', true);
+require_once "./includes/common.inc.php";
+
 header('Content-type: text/html;charset=utf-8');
 ?>
 <!DOCTYPE html>
@@ -6,7 +20,7 @@ header('Content-type: text/html;charset=utf-8');
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		
-		<title>Final Fantasy | ファイナルファンタジ &lt;&lt;FFXIV&gt;&gt;</title>
+		<title>Final Fantasy</title>
 		
 		<link rel="stylesheet" type="text/css" href="style/jquery-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="style/ruby.css" />
@@ -17,114 +31,42 @@ header('Content-type: text/html;charset=utf-8');
 		<script type="text/javascript" src="js/xivdb-tooltips.js"></script>
 	</head>
 	<body>
-		<div id="bgcoloranimation">&nbsp;</div>
-		<div id="bggradient">&nbsp;</div>
+		<img id="left-bg" src="./images/ffxiv-bg.png" />
+		<img id="right-bg" src="./images/wow-bg.png" />
 
-		<script>
-			$(function() {				
-				var loadingCounter = 0;
+		<div id="wrapper">		
+			<div id="content">				
+				<div id="header">
+					<small><a href="forums">Forums</a> | <a href="http://sim.ffxivguild.net/" target="_blank">FFXIV Simulator</a></small>
+				</div>
+
+				<?php
+				$result = $SQL->query("SELECT * FROM {$_['phpbb']['db_table_prefix']}topics WHERE forum_id = '".$SQL->escape_string($_['phpbb']['news_forum_id'])."' ORDER BY topic_time DESC LIMIT 0, 5");
+				while ($topic = $SQL->fetch_assoc($result)) {
+					$result2 = $SQL->query("SELECT * FROM {$_['phpbb']['db_table_prefix']}posts WHERE post_id = '".$SQL->escape_string($topic['topic_first_post_id'])."'");
+					$first_post = $SQL->fetch_assoc($result2);
 				
-				var loadingAnimationCycle = (function cycle() { 
-					if (loadingCounter > 0) {
-						$('#loadingwrapper').animate({ opacity: 1.0 }, 1500, 'linear', function() {
-							$('#loadingwrapper').animate({ opacity: 0.5 }, 1500, 'linear', cycle);
-						});
-					}
-				});
-
-				var showLoadingIndicator = function() {
-					if (++loadingCounter == 1) {
-						$('#loadingwrapper').show();
-						loadingAnimationCycle();
-					}
-				}
-
-				var hideLoadingIndicator = function() {
-					if (--loadingCounter == 0) {
-						$('#loadingwrapper').hide();
-					}
-				}
-
-				var visiblePage = '';
-				var previousHash = window.location.hash;
-				var navigateToHash = function() {
-					var hash = window.location.hash;
-					var errorhash = previousHash;
-					previousHash = hash;
-					var parts = hash.split('/');
-					var url = 'ajax/home.php';
-					if (parts.length >= 1) {
-						if (parts[0] == '#apply') {
-							url = 'ajax/apply.php';
-						} else if (parts[0] == '#groups') {
-							url = 'ajax/groups.php';
-						}
-					}
-					if (url == visiblePage) {
-						return;
-					}
-					$('#content').animate({opacity: 0.0}, 300);
-					showLoadingIndicator();
-					$('#content').load(url, function(response, status, xhr) {
-						hideLoadingIndicator();
-						if (status == "error") {
-							if (xhr.status != 0) {
-								alert("Error (" + xhr.status + "): " + xhr.statusText);
-								window.location.hash = errorhash;
-							}
-						} else {
-							visiblePage = url;
-						}
-						$('#content').animate({opacity: 1.0}, 300);
-					});						
-				};
-
-				$(window).on('hashchange', function() {
-					navigateToHash();
-				});
-				navigateToHash();
-			});
-		</script>
-
-		<div id="wrapper">
-			<div id="header">
-				<table id="navbar"><tr>
-					<td><a href="#">Home</a></td>
-					<td><a href="#groups">Raid Groups</a></td>
-					<td><a href="forums">Forums</a></td>
-					<td><a href="http://sim.ffxivguild.net" target="_blank">Combat Simulator</a></td>
-				</tr></table>
-			</div>
-
-			<div id="content">
-				&nbsp;
-			</div>
-			
-			<div id="loadingwrapper">
-				<center>
-					<div id="loadingbox">
-						<ruby>
-							<rb>読み込み中</rb><rp>(</rp><rt>Loading</rt><rp>)</rp>
-						</ruby>
+					$post_text = nl2br($first_post['post_text']);
+					$post_text = preg_replace("/\\[(\\/?)forumonly(:[a-zA-Z0-9]+)?\\]/i", '[\1hidden\2]', $post_text);
+					$post_text = preg_replace("/\\[(\\/?)siteonly(:[a-zA-Z0-9]+)?\\]/i", '[\1forumonly\2]', $post_text);
+				
+					$bbcode = new bbcode();
+					$bbcode->bbcode_second_pass($post_text, $first_post['bbcode_uid'], $first_post['bbcode_bitfield']);
+					$post_text = smiley_text($post_text);
+					?>
+					<div class="news">
+						<div class="head">
+							<a href="forums/viewtopic.php?f=<?= $_['phpbb']['news_forum_id'] ?>&t=<?= htmlspecialchars($topic['topic_id']) ?>"><h1><?= $topic['topic_title'] ?></h1></a>
+							<div class="subtitle">Posted by <a href="forums/memberlist.php?mode=viewprofile&u=<?= htmlspecialchars($topic['topic_poster']) ?>"><?= htmlspecialchars($topic['topic_first_poster_name']) ?></a> at <?= create_date($topic['topic_time']) ?></div>
+						</div>
+						<div class="body"><?= $post_text ?></div>
 					</div>
-				</center>
+					<?php
+				}
+				?>
+				
+				<small>For more news and comments, check out the <a href="forums/viewforum.php?f=<?= $_['phpbb']['news_forum_id'] ?>">News</a> forum.</small>
 			</div>
 		</div>
-		
-		<script>
-		$(function() {
-			var colors = ['#000070', '#700070', '#700000', '#707000', '#007000', '#007070'];
-			var next = Math.floor(Math.random() * colors.length);
-			var doNextColorAnimation = function() {
-				if (next >= colors.length) {
-					next = 0;
-				}
-				$('#bgcoloranimation').animate({
-					'backgroundColor': colors[next++]
-				}, 5000, doNextColorAnimation);
-			}
-			doNextColorAnimation();
-		});
-		</script>
 	</body>
 </html>
